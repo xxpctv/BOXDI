@@ -40,9 +40,9 @@ mv $CURRENT_DIR/DIY/app_icon.png $CURRENT_DIR/$DIR/app/src/main/res/drawable-xxx
 #cp $CURRENT_DIR/DIY/J/fragment_user.xml $CURRENT_DIR/$DIR/app/src/main/res/layout/fragment_user.xml
 
 #主页增加每日一言1.0
-cp $CURRENT_DIR/DIY/J/ApiConfig.java $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java
-cp $CURRENT_DIR/DIY/J/activity_home.xml $CURRENT_DIR/$DIR/app/src/main/res/layout/activity_home.xml
-cp $CURRENT_DIR/DIY/J/HomeActivity.java $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/ui/activity/HomeActivity.java
+#cp $CURRENT_DIR/DIY/J/ApiConfig.java $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java
+#cp $CURRENT_DIR/DIY/J/activity_home.xml $CURRENT_DIR/$DIR/app/src/main/res/layout/activity_home.xml
+#cp $CURRENT_DIR/DIY/J/HomeActivity.java $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/ui/activity/HomeActivity.java
 
 #换源
 #cp $CURRENT_DIR/DIY/J/DetailActivity.java $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/ui/activity/DetailActivity.java
