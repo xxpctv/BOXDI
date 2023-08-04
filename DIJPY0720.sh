@@ -52,7 +52,7 @@ mv $CURRENT_DIR/DIY/app_icon.png $CURRENT_DIR/$DIR/app/src/main/res/drawable-xxx
 cp $CURRENT_DIR/DIY/app_bg.png $CURRENT_DIR/$DIR/app/src/main/res/drawable/app_bg.png
 
 # 内置接口
-sed -i 's#API_URL, ""#API_URL, "https://f000.backblazeb2.com/file/tsiloa/V/2023.json"#g'   $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java
+sed -i 's#API_URL, ""#API_URL, "https://jihulab.com/tangyong/T_OO/-/raw/main/XYQ0720.json"#g'   $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java
 
 #自带源修改
 #sed -i 's/HawkConfig.API_URL, ""/HawkConfig.API_URL, "https:\/\/315600.xyz\/s"/g' $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java
