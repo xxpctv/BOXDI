@@ -37,7 +37,7 @@ cp $CURRENT_DIR/DIY/app_icon2.png $CURRENT_DIR/$DIR/app/src/main/res/drawable-xx
 mv $CURRENT_DIR/DIY/app_icon2.png $CURRENT_DIR/$DIR/app/src/main/res/drawable-xxxhdpi/app_icon.png
 
 # 主页UI微调
-#cp $CURRENT_DIR/DIY/J/fragment_user.xml $CURRENT_DIR/$DIR/app/src/main/res/layout/fragment_user.xml
+cp $CURRENT_DIR/DIY/J/fragment_user.xml $CURRENT_DIR/$DIR/app/src/main/res/layout/fragment_user.xml
 
 #主页增加每日一言1.0
 cp $CURRENT_DIR/DIY/J/ApiConfig.java $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java
