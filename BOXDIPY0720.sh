@@ -24,7 +24,7 @@ echo "RELEASE_STORE_PASSWORD=TVBoxOSC" >>$CURRENT_DIR/$DIR/gradle.properties
 echo "RELEASE_KEY_PASSWORD=TVBoxOSC" >>$CURRENT_DIR/$DIR/gradle.properties
 
 #xwalk修复
-sed -i 's/download.01.org\/crosswalk\/releases\/crosswalk\/android\/maven2/raw.githubusercontent.com\/lm317379829\/TVBoxDIY\/main/g' $CURRENT_DIR/$DIR/build.gradle
+#sed -i 's/download.01.org\/crosswalk\/releases\/crosswalk\/android\/maven2/raw.githubusercontent.com\/lm317379829\/TVBoxDIY\/main/g' $CURRENT_DIR/$DIR/build.gradle
 
 #名称修改
 sed -i 's/TVBox/MYS/g' $CURRENT_DIR/$DIR/app/src/main/res/values/strings.xml
@@ -58,9 +58,9 @@ sed -i 's#API_URL, ""#API_URL, "https://jihulab.com/tangyong/T_OO/-/raw/main/XYQ
 #sed -i 's/HawkConfig.API_URL, ""/HawkConfig.API_URL, "https:\/\/315600.xyz\/s"/g' $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java
 
 #解决模拟器闪退
-echo "" >>$CURRENT_DIR/$DIR/app/proguard-rules.pro 
-echo "#新增设定" >>$CURRENT_DIR/$DIR/app/proguard-rules.pro 
-echo "-keep class com.xunlei.downloadlib.** {*;}" >>$CURRENT_DIR/$DIR/app/proguard-rules.pro 
+#echo "" >>$CURRENT_DIR/$DIR/app/proguard-rules.pro 
+#echo "#新增设定" >>$CURRENT_DIR/$DIR/app/proguard-rules.pro 
+#echo "-keep class com.xunlei.downloadlib.** {*;}" >>$CURRENT_DIR/$DIR/app/proguard-rules.pro 
 
 #修改播放器进度条消失时间
 sed -i 's/10000/6000/g'  $CURRENT_DIR/$DIR/app/src/main/java/com/github/tvbox/osc/player/controller/VodController.java
