@@ -477,7 +477,7 @@ public class ApiConfig {
                         }
                     }	                    }
                 }	                }
-                if (obj.has("filter")) {	                if (obj.has("hosts")) {
+                if (obj.has("filter")) {	                if (obj.has("hosts") && obj.has("regex")) {
                     JsonArray filterJsonArr = obj.getAsJsonArray("filter");	                    ArrayList<String> rule = new ArrayList<>();
                     ArrayList<String> filter = new ArrayList<>();	                    JsonArray regexArray = obj.getAsJsonArray("regex");
                     for(JsonElement one : filterJsonArr) {	                    for (JsonElement one : regexArray) {
