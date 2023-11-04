@@ -84,7 +84,7 @@ public class HomeActivity extends BaseActivity {
     private LinearLayout contentLayout;
     private TextView tvDate;
     private TextView tvName;
-    private TextView tvtalk1;
+     private TextView tvtalk1;
     private TvRecyclerView mGridView;
     private NoScrollViewPager mViewPager;
     private SourceViewModel sourceViewModel;
@@ -107,8 +107,8 @@ public class HomeActivity extends BaseActivity {
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
             tvDate.setText(timeFormat.format(date));
-            mHandler.postDelayed(this, 1000);            
-       }                 
+            mHandler.postDelayed(this, 1000);
+        }
     };
 
     @Override
@@ -162,8 +162,9 @@ public class HomeActivity extends BaseActivity {
                                 view.findViewById(R.id.tvFilter).setVisibility(View.GONE);
                                 view.findViewById(R.id.tvFilterColor).setVisibility(View.GONE);
                             }
-                            textView.invalidate();                                  
-                        }                     
+                            textView.invalidate();
+                        }
+
                         public View v = view;
                         public int p = position;
                     }, 10);
@@ -206,6 +207,12 @@ public class HomeActivity extends BaseActivity {
 
         this.mGridView.setOnInBorderKeyEventListener(new TvRecyclerView.OnInBorderKeyEventListener() {
             public final boolean onInBorderKeyEvent(int direction, View view) {
+                if(direction == View.FOCUS_UP){
+                    BaseLazyFragment baseLazyFragment = fragments.get(sortFocused);
+                    if ((baseLazyFragment instanceof GridFragment) ) {// 弹出筛选
+                         ((GridFragment) baseLazyFragment).forceRefresh();
+                    }
+                }
                 if (direction != View.FOCUS_DOWN) {
                     return false;
                 }
@@ -223,23 +230,29 @@ public class HomeActivity extends BaseActivity {
         tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataInitOk = false;
-                jarInitOk = true;
-                showSiteSwitch();
+                if(dataInitOk && jarInitOk){
+                    showSiteSwitch();
+                }else {
+                    jumpActivity(SettingActivity.class);
+                }
             }
         });
         tvName.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("useCache", true);
-                intent.putExtras(bundle);
-                HomeActivity.this.startActivity(intent);
+                if(dataInitOk && jarInitOk){
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("useCache", true);
+                    intent.putExtras(bundle);
+                    HomeActivity.this.startActivity(intent);
+                }else {
+                    jumpActivity(SettingActivity.class);
+                }
                 return true;
             }
-        });        
+        });
         setLoadSir(this.contentLayout);
         //mHandler.postDelayed(mFindFocus, 500);
     }
@@ -263,8 +276,8 @@ public class HomeActivity extends BaseActivity {
     private boolean dataInitOk = false;
     private boolean jarInitOk = false;
 
-    private void initData() {                               
-    //    首页增加每日一言      
+    private void initData() {
+     //    首页增加每日一言      
             String tvtalurl = ApiConfig.get().daily_sentence;            
             UrlHttpUtil.get(tvtalurl, new CallBackUtil.CallBackString() {
                    public void onFailure(int i, String str) {
@@ -467,27 +480,37 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        int i;
-        if (this.fragments.size() <= 0 || this.sortFocused >= this.fragments.size() || (i = this.sortFocused) < 0) {
-            exit();
-            return;
-        }
-        BaseLazyFragment baseLazyFragment = this.fragments.get(i);
-        if (baseLazyFragment instanceof GridFragment) {
-            View view = this.sortFocusView;
-            GridFragment grid = (GridFragment) baseLazyFragment;
-            if (grid.restoreView()) {
+
+        // takagen99: Add check for VOD Delete Mode
+        if (HawkConfig.hotVodDelete) {
+            HawkConfig.hotVodDelete = false;
+            UserFragment.homeHotVodAdapter.notifyDataSetChanged();
+        } else {
+            int i;
+            if (this.fragments.size() <= 0 || this.sortFocused >= this.fragments.size() || (i = this.sortFocused) < 0) {
+                exit();
                 return;
-            }// 还原上次保存的UI内容
-            if (view != null && !view.isFocused()) {
-                this.sortFocusView.requestFocus();
-            } else if (this.sortFocused != 0) {
+            }
+            BaseLazyFragment baseLazyFragment = this.fragments.get(i);
+            if (baseLazyFragment instanceof GridFragment) {
+                View view = this.sortFocusView;
+                GridFragment grid = (GridFragment) baseLazyFragment;
+                if (grid.restoreView()) {
+                    return;
+                }// 还原上次保存的UI内容
+                if (view != null && !view.isFocused()) {
+                    this.sortFocusView.requestFocus();
+                } else if (this.sortFocused != 0) {
+                    this.mGridView.setSelection(0);
+                } else {
+                    exit();
+                }
+            } else if (baseLazyFragment instanceof UserFragment && UserFragment.tvHotList1.canScrollVertically(-1)) {
+                UserFragment.tvHotList1.scrollToPosition(0);
                 this.mGridView.setSelection(0);
             } else {
                 exit();
             }
-        } else {
-            exit();
         }
     }
 
