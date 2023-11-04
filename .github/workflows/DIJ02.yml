@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Clone Project
-        run: git clone -b release --depth=1 https://github.com/q215613905/TVBoxOS.git
+        run: git clone -b dev --depth=1 https://github.com/q215613905/TVBoxOS.git
       - name: DIY
         run: |
           chmod +x BOXDIPY0720.sh
